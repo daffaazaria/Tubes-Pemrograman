@@ -38,7 +38,7 @@
 
         <div class="footer-bottom">
             <div class="footer-info">
-                <p>&copy; 2025 KosKu. All rights reserved.</p>
+                <p>&copy; 2026 KosKu. All rights reserved.</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>

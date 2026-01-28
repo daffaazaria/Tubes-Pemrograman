@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/hero.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/search.css') }}" />
-    <!-- Font Awesome and other non-critical resources -->
+      <!-- Font Awesome and other non-critical resources -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />      <!-- Critical inline CSS for instant hero loading -->
     <style>
@@ -32,7 +32,7 @@
                 <div class="search-tags">
                     <a href="{{ route('landing.search', ['query' => 'Dekat Kampus']) }}" class="search-tag">Dekat Kampus</a>
                     <a href="{{ route('landing.search', ['query' => 'Pusat Kota']) }}" class="search-tag">Pusat Kota</a>
-                    <a href="{{ route('landing.search', ['query' => 'Monthly Deals']) }}" class="search-tag">Daerah Populer</a>
+               <a href="{{ route('landing.search', ['location_type' => 'popular_area']) }}" class="search-tag">Popular Area</a>
                     <a href="{{ route('landing.search', ['query' => 'Premium']) }}" class="search-tag">Premium</a>
                 </div>
             </div>
@@ -44,10 +44,10 @@
                     <div style="margin-bottom: 16px;">
                         <label style="display: block; margin-bottom: 8px; color: #6b7280; font-weight: 500;">Lokasi</label>
                         <input type="text" name="query" placeholder="Mau cari kos dimana?" 
-                            style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;"
-                            value="{{ request('query') ?? '' }}">
+                               style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;"
+                               value="{{ request('query') ?? '' }}">
                     </div>
-                        <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                      <div style="display: flex; gap: 12px; margin-bottom: 20px;">
                         <div style="flex: 1;">
                             <label style="display: block; margin-bottom: 8px; color: #6b7280; font-weight: 500;">Budget</label>
                             <select id="hero-price-select" name="price_range" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px;">

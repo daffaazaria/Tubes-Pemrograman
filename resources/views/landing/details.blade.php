@@ -92,11 +92,16 @@
 
                 <div class="property-rating">
                     <div class="rating-stars">
+                        @php
+                            $reviews = $kos->reviews()->get();
+                            $totalReviews = $reviews->count();
+                            $avgRating = $totalReviews > 0 ? round($reviews->avg('rating'), 1) : 0;
+                        @endphp
                         @for($i = 1; $i <= 5; $i++)
-                            <i class="fa{{ $i <= ($kos->rating ?? 0) ? 's' : 'r' }} fa-star"></i>
+                            <i class="fa{{ $i <= $avgRating ? 's' : 'r' }} fa-star"></i>
                         @endfor
                     </div>
-                    <span class="rating-info">{{ $kos->rating ?? 0 }}/5 ({{ $kos->review_count ?? 0 }} review)</span>
+                    <span class="rating-info">{{ $avgRating }}/5 ({{ $totalReviews }} review)</span>
                 </div>
 
                 <div class="property-location">{{ $kos->address }}</div>
@@ -795,9 +800,6 @@
                 currentPage = 1;
                 loadReviews(1, false);
                 
-                // Update rating dan review count di header
-                updateRatingHeader();
-                
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 closeModal();
@@ -816,30 +818,6 @@
                 closeModal();
             }
         });
-
-        // Function to update rating header after new review
-        function updateRatingHeader() {
-            fetch(`/kos/{{ $kos->id }}/rating`)
-                .then(response => response.json())
-                .then(data => {
-                    // Update rating stars
-                    const ratingsStarsContainer = document.querySelector('.property-rating .rating-stars');
-                    if (ratingsStarsContainer) {
-                        let starsHtml = '';
-                        for (let i = 1; i <= 5; i++) {
-                            starsHtml += `<i class="fa${i <= Math.ceil(data.rating) ? 's' : 'r'} fa-star"></i>`;
-                        }
-                        ratingsStarsContainer.innerHTML = starsHtml;
-                    }
-                    
-                    // Update rating info text
-                    const ratingInfoElement = document.querySelector('.property-rating .rating-info');
-                    if (ratingInfoElement) {
-                        ratingInfoElement.textContent = `${data.rating}/5 (${data.review_count} review)`;
-                    }
-                })
-                .catch(error => console.error('Error updating rating:', error));
-        }
     </script>    <script>
         // Review pagination dengan load more - tampilkan 7 pertama, load 7 lagi setiap klik
         let currentPage = 1;

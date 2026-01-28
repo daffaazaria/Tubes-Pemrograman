@@ -193,18 +193,16 @@ body {
 }
 
 .choices__item--selectable {
-    border-radius: 4px;
-    padding: 10px 12px;
-    margin: 2px 4px;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 2px 0;
     color: #333;
     background: #fff;
-    cursor: pointer;
-    transition: all 0.2s ease;
 }
 
 .choices__item--selectable.is-highlighted {
-    background: #f0f0f0 !important;
-    color: #111 !important;
+    background: #fff !important;
+    color: #333 !important;
 }
 
 .choices__item--choice.is-selected {
@@ -249,29 +247,9 @@ body {
     border: 1px solid #ddd;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-height: 300px;
+    max-height: 200px;
     overflow-y: auto;
     margin-top: 2px;
-    z-index: 1001;
-}
-
-/* Scrollbar styling untuk dropdown */
-.choices__list--dropdown::-webkit-scrollbar {
-    width: 8px;
-}
-
-.choices__list--dropdown::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-.choices__list--dropdown::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-}
-
-.choices__list--dropdown::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }
 
 .choices[data-type*="select-one"] .choices__inner {
@@ -319,22 +297,6 @@ body {
 
 .choices.has-value .choices__list--single .choices__placeholder {
     display: none !important;
-}
-
-/* Styling untuk input field "Other Category" */
-#otherCategoryGroup {
-    animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* Ensure dropdown items are visible */

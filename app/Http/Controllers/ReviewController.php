@@ -41,14 +41,4 @@ class ReviewController extends Controller
             ->paginate($perPage);
         return response()->json($reviews);
     }
-    public function getRating($kos_id)
-    {
-        $reviews = Review::where('kos_id', $kos_id)->get();
-        $rating = $reviews->avg('rating') ?? 0;
-        $review_count = $reviews->count();
-        
-        return response()->json([
-            'rating' => round($rating, 1),
-            'review_count' => $review_count
-        ]);
-    }}
+}

@@ -122,19 +122,5 @@ class Kos extends Model
         return $this->hasMany(Review::class);
     }
 
-    /**
-     * Get average rating from reviews
-     */
-    public function getRatingAttribute()
-    {
-        return round($this->reviews()->avg('rating') ?? 0, 1);
-    }
 
-    /**
-     * Get total review count
-     */
-    public function getReviewCountAttribute()
-    {
-        return $this->reviews()->count();
-    }
 }

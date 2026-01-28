@@ -41,11 +41,6 @@
                     </select>
                 </div>
 
-                <div class="form-group" id="otherCategoryGroup" style="display: none;">
-                    <label class="form-label" for="otherCategory">Specify Other Category</label>
-                    <input type="text" id="otherCategory" name="other_category" class="form-input" placeholder="Masukkan kategori lainnya">
-                </div>
-
                 <div class="form-group">
                     <label class="form-label">Priority Level</label>
                     <div class="priority-options">
@@ -144,15 +139,9 @@
             const priority = document.querySelector('input[name="priority"]:checked');
             const subject = document.getElementById('subject').value.trim();
             const description = document.getElementById('description').value.trim();
-            const otherCategory = category === 'other' ? document.getElementById('otherCategory').value.trim() : '';
 
             if (!name || !email || !category || !priority || !subject || !description) {
                 showCustomNotification('Missing Information', 'Please fill in all required fields to submit your report.', 'error');
-                return;
-            }
-
-            if (category === 'other' && !otherCategory) {
-                showCustomNotification('Missing Information', 'Please specify the category since you selected "Other".', 'error');
                 return;
             }
 
@@ -202,9 +191,6 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const categoryElement = document.getElementById('category');
-            const otherCategoryGroup = document.getElementById('otherCategoryGroup');
-            const otherCategoryInput = document.getElementById('otherCategory');
-
             if (categoryElement) {
                 window.categoryChoices = new Choices(categoryElement, {
                     searchEnabled: false,
@@ -213,19 +199,7 @@
                     placeholder: true,
                     placeholderValue: 'Select a category',
                     allowHTML: true,
-                    removeItemButton: false,
-                    maxItemCount: 1
-                });
-
-                // Handle category change
-                categoryElement.addEventListener('change', function () {
-                    if (this.value === 'other') {
-                        otherCategoryGroup.style.display = 'block';
-                        otherCategoryInput.focus();
-                    } else {
-                        otherCategoryGroup.style.display = 'none';
-                        otherCategoryInput.value = '';
-                    }
+                    removeItemButton: false
                 });
             }
         });

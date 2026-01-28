@@ -16,6 +16,11 @@ class RecentReportsWidget extends BaseWidget
 
     protected static ?int $sort = 4;
 
+    public static function canView(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
     public function table(Table $table): Table
     {
         return $table
