@@ -109,7 +109,7 @@
                 <div class="price-label">Mulai dari</div>
                 <div class="price-main">IDR {{ number_format($kos->price, 0, ',', '.') }}</div>
                 <div class="price-period">/bulan</div>                <div class="action-buttons">
-                    <button class="book-button" onclick="window.open('https://wa.me/6282211779010', '_blank')">Yuk, Booking Sekarang!</button>
+                    <button class="book-button" onclick="openBookingModal()">Yuk, Booking Sekarang!</button>
                 </div>
             </div>
         </div>
@@ -430,6 +430,36 @@
     </div> <!-- Penutup div.container -->
 </section>
 
+<!-- Booking Modal -->
+<div class="modal-overlay" id="bookingModalOverlay" style="display:none;">
+    <div class="modal" style="max-width: 420px;" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 class="modal-title">Booking Kos</h3>
+            <button class="close-btn" onclick="closeBookingModal()">&times;</button>
+        </div>
+        <form id="bookingForm" method="POST" action="/booking">
+            <input type="hidden" name="kos_id" value="{{ $kos->id }}">
+            <div class="form-group">
+                <label for="duration" class="form-label">Durasi Sewa (bulan)</label>
+                <input type="number" id="duration" name="duration" class="form-input" min="1" max="36" value="1" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Fasilitas</label>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label><input type="checkbox" name="features[]" value="laundry">Laundry</label>
+                    <label><input type="checkbox" name="features[]" value="ac">AC</label>
+                    <label><input type="checkbox" name="features[]" value="wifi">WiFi</label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-cancel" onclick="closeBookingModal()">Batal</button>
+                <button type="submit" class="btn btn-submit">Lanjutkan Booking</button>
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
 <!-- Photo Modal -->
 <div class="photo-modal" id="photoModal">
     <div class="modal-content">
@@ -469,7 +499,25 @@
 </footer>
 
 <script>
-    // Semua foto dari backend, untuk modal "Lihat Semua Foto"
+        // Booking Modal logic
+        function openBookingModal() {
+            document.getElementById('bookingModalOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeBookingModal() {
+            document.getElementById('bookingModalOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        // Close modal on overlay click
+        document.addEventListener('DOMContentLoaded', function() {
+            var overlay = document.getElementById('bookingModalOverlay');
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeBookingModal();
+                });
+            }
+        });
+    // Semua foto dari   backend, untuk modal "Lihat Semua Foto"
     const allPhotosFull = [
         @foreach($kos->image as $img)
             '{{ asset("storage/" . $img) }}'{{ !$loop->last ? ',' : '' }}

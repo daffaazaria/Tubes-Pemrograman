@@ -131,7 +131,34 @@ public static function form(Form $form): Form
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                // Filter berdasarkan gender
+                Tables\Filters\SelectFilter::make('gender')
+                    ->label('Jenis Kelamin')
+                    ->options([
+                        'male' => 'Laki-laki',
+                        'female' => 'Perempuan',
+                        'mixed' => 'Campuran',
+                    ]),
+
+                // Filter berdasarkan rentang harga
+                Tables\Filters\Filter::make('price_range')
+                    ->form([
+                        Forms\Components\TextInput::make('min_price')
+                            ->label('Harga Minimum')
+                            ->numeric(),
+                        Forms\Components\TextInput::make('max_price')
+                            ->label('Harga Maksimum')
+                            ->numeric(),
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        if (!empty($data['min_price'])) {
+                            $query->where('price', '>=', $data['min_price']);
+                        }
+                        if (!empty($data['max_price'])) {
+                            $query->where('price', '<=', $data['max_price']);
+                        }
+                    })
+                    ->label('Rentang Harga'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
